@@ -41,7 +41,7 @@ const myLibrary = [
     new Book("The Truth", "Terry Pratchett", 400, false),
     new Book("Thief of Time", "Terry Pratchett", 432, false),
     new Book("The Last Hero", "Terry Pratchett", 176, false),
-    new Book("The Amazing Maurice and his Educated Rodents", "Terry Pratchett", 272, false),
+    //new Book("The Amazing Maurice and his Educated Rodents", "Terry Pratchett", 272, false),
     new Book("Night Watch", "Terry Pratchett", 432, false),
     new Book("The Wee Free Men", "Terry Pratchett", 263, false),
     new Book("Monstrous Regiment", "Terry Pratchett", 432, false),
