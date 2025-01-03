@@ -9,6 +9,10 @@ function Book(title, author, pages, read) {
     };
 }
 
+Book.prototype.toggleRead = function() {
+    this.read = !this.read
+}
+
 const myLibrary = [
     new Book("The Colour of Magic", "Terry Pratchett", 288, true),
     new Book("The Light Fantastic", "Terry Pratchett", 241, true),
@@ -54,14 +58,19 @@ const myLibrary = [
 ];
 
 
-const container = document.querySelector("#container")
+const container = document.querySelector("#library-container")
 
 function addBookToLibrary(title, author, pages, read) {
     myLibrary.push(new Book(title, author, pages, read))
 }
 
+function eraseDisplay() {
+    const displayedBooks = container.querySelectorAll(".library-item")
+    displayedBooks.forEach(book => book.remove())
+}
+
 function displayLibrary() {
-    myLibrary.forEach( book => {
+    myLibrary.forEach( (book, index) => {
         const libraryItem = document.createElement("div")
         libraryItem.classList.add("library-item")
 
@@ -85,13 +94,42 @@ function displayLibrary() {
         bookIsRead.classList.add("book-read")
         bookIsRead.textContent = book.read?"Read":"Not read yet"
 
+        /* delete button */
+        const deleteButton = document.createElement("button")
+        deleteButton.classList.add("book-delete-button")
+        deleteButton.textContent = "Delete"
+        deleteButton.id = `delete-${index}`
+
+        /* toggle read button */
+        const toggleReadButton = document.createElement("button")
+        toggleReadButton.classList.add("toggle-read-button")
+        toggleReadButton.textContent = book.read?'Unmark "Read"':'Mark "Read"'
+        toggleReadButton.id = `toggle-${index}`
+
         libraryItem.appendChild(bookTitle)
         libraryItem.appendChild(bookAuthor)
         libraryItem.appendChild(bookPages)
         libraryItem.appendChild(bookIsRead)
+        libraryItem.appendChild(deleteButton)
+        libraryItem.appendChild(toggleReadButton)
 
         container.appendChild(libraryItem)
     })
 }
 
+//eraseDisplay()
 displayLibrary()
+
+container.addEventListener("click", event => {
+    if(Array.from(event.target.classList).includes("book-delete-button")) {
+        myLibrary.splice(event.target.id.replace("delete-",""), 1)
+        eraseDisplay()
+        displayLibrary()
+    } 
+
+    if(Array.from(event.target.classList).includes("toggle-read-button")) {
+        myLibrary[event.target.id.replace("toggle-","")].toggleRead()
+        eraseDisplay()
+        displayLibrary()
+    } 
+})
