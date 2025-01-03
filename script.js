@@ -59,6 +59,7 @@ const myLibrary = [
 
 
 const container = document.querySelector("#library-container")
+const form = document.querySelector("#new-book-form")
 
 function addBookToLibrary(title, author, pages, read) {
     myLibrary.push(new Book(title, author, pages, read))
@@ -117,9 +118,6 @@ function displayLibrary() {
     })
 }
 
-//eraseDisplay()
-displayLibrary()
-
 container.addEventListener("click", event => {
     if(Array.from(event.target.classList).includes("book-delete-button")) {
         myLibrary.splice(event.target.id.replace("delete-",""), 1)
@@ -131,5 +129,21 @@ container.addEventListener("click", event => {
         myLibrary[event.target.id.replace("toggle-","")].toggleRead()
         eraseDisplay()
         displayLibrary()
-    } 
+    }
 })
+
+form.addEventListener("submit", event => {
+    event.preventDefault()
+    const formData = new FormData(form)
+    const title = formData.get("title")
+    const author = formData.get("author")
+    const pages = formData.get("pages")
+    const read = formData.get("read") === "yes"
+    addBookToLibrary(title, author, pages, read)
+    form.reset()
+    eraseDisplay()
+    displayLibrary()
+})
+
+//eraseDisplay()
+displayLibrary()

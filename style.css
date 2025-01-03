@@ -1,3 +1,34 @@
+#container {
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    gap: 15px;
+}
+
+#header {
+    grid-column: 1 / -1;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 72px;
+}
+
+#new-book-form {
+    padding: 15px;
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    gap: 15px;
+    align-content: start;
+}
+
+#read-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+#new-book-form label,
+#new-book-form input {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 16px;
+}
+
 #library-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px,1fr));
